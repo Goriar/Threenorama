@@ -1,0 +1,25 @@
+doctype
+html(ng-app='ThreenoramaApp')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title angular-threenorama demo
+    link(href='css/main.css', rel='stylesheet')
+  body(ng-controller='ThreenoramaCntrl')
+    .container
+      h1 angular-threenorama
+      .row 
+        form(role=form).col-md-2
+          .form-group
+            button.btn.btn-default.btn-block(type='button', ng-click='setSource1()') Bild 1
+            button.btn.btn-default.btn-block(type='button', ng-click='setSource2()') Bild 2
+        .col-md-10
+          ng-threenorama(src='url')
+            include _controls.jade
+    // libs
+    script(src='js/three.js')
+    script(src='js/threenorama.js')
+    script(src='js/angular.js')
+    script(src='js/angular-threenorama.js')
+    script(src='js/app.js') 

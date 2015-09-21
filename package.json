@@ -1,0 +1,29 @@
+{
+  "name": "mbc-panorama-viewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "CanvasRenderer.js",
+  "dependencies": {
+    "angular": "^1.4.5",
+    "bootstrap-sass": "^3.3.5",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-gh-pages": "^0.5.2",
+    "gulp-jade": "^1.1.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-sequence": "^0.4.1",
+    "gulp-server-livereload": "^1.5.3",
+    "three": "^0.71.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@isasource.hochschule-trier.de:kruschid/mbc-panorama-viewer.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
