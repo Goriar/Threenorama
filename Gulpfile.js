@@ -8,7 +8,7 @@ sass = require('gulp-sass'),
 jade = require('gulp-jade');
 
 gulp.task('clean', function(){
-	return del('public');	
+	return del(['public','bower-release']);	
 });
 
 gulp.task('copy', ['clean'], function(){
@@ -43,6 +43,16 @@ gulp.task('build',['copy'],gulpSequence(['coffee','sass','jade']));
 gulp.task('deployDemo', function(){
 	return gulp.src('./public/**/*')
 	.pipe(ghPages());
+});
+
+gulp.task('copyPluginFiles', function(){
+	return gulp.src(['jade/_controls.jade','sass/_controls.sass','js/threenorama.js','public/js/angular-threenorama.js','json/bower.json'])
+	.pipe(gulp.dest('bower-release'));
+});
+
+gulp.task('deployPlugin',['copyPluginFiles'], function(){
+	return gulp.src('bower-release/*')
+	.pipe(ghPages({branch: "bower-release"} ));
 });
 
 gulp.task('watch', function(){

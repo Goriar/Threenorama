@@ -1,0 +1,19 @@
+{
+  "name": "angular-threenorama",
+  "authors": [
+    "Christoher Baumann"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "1.4.3"
+  },
+  "keywords": [
+    "image",
+    "picture",
+    "viewer",
+    "panorama 3d"
+  ],
+  "main": [
+    "angular-threenorama.js"
+  ]
+}
