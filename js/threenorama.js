@@ -162,20 +162,48 @@ function NGTScene() {
 		that.userMouseDown = false;
 		that.ngtAnchors.hitAnchor = 0;
 		that.viewFinderGrabbed = false;
-		var material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
+		that.ngtAnchors.calculateAngle();
+		var material;
+		if(that.ngtAnchors.tiltOutOfLimit){
+			material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+		} else {
+			material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
+		}
 		that.ngtAnchors.anchor1.material = material;
-		that.ngtAnchors.anchor2.material = material;
+		that.ngtAnchors.anchor2.material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
 		that.ngtAnchors.anchor3.material = material;
-		that.ngtAnchors.anchor4.material = material;
+		that.ngtAnchors.anchor4.material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
 		that.ngtAnchors.moveAnchor.material = material;
 		material.dispose();
-		
-		that.ngtAnchors.calculateAngle();
-		
 		if(that.onChangeRect != undefined)
 			that.onChangeRect();
 	};
 
+	this.outOfRangeColorChange = function () {
+		var material;
+		if(that.ngtAnchors.tiltOutOfLimit){
+			material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+		} else {
+			material = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
+		}
+		if(that.ngtAnchors.hitAnchor == 1){
+			that.ngtAnchors.anchor1.material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+		} else {
+			that.ngtAnchors.anchor1.material = material;
+		}
+		if(that.ngtAnchors.hitAnchor == 3){
+			that.ngtAnchors.anchor3.material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+		} else {
+			that.ngtAnchors.anchor3.material = material;
+		}
+		if(that.ngtAnchors.hitAnchor == 5){
+			that.ngtAnchors.moveAnchor.material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+		} else {
+			that.ngtAnchors.moveAnchor.material = material;
+		}
+		material.dispose();
+	}
+	
 	this.calcMouseDrag = function (mouse) {
 		that.mouseDragVector = new THREE.Vector2(mouse.x, mouse.y);
 		that.mouseDragVector.subVectors(that.mouseDownPosition, that.mouseDragVector);
@@ -310,7 +338,23 @@ function NGTScene() {
 										width > 0 &&
 										hit.y < pos3.y &&
 										hit.y > -that.sphereRadius - 2) {
-										that.sizeVector = hit;
+										ay = new THREE.Vector3(hit.x, 0, hit.z).angleTo(new THREE.Vector3(pos4.x, 0, pos4.z));
+
+										if (ay >= 0.015) {
+											if (hit.x * pos3.z - hit.z * pos3.x < 0) {
+												ay = Math.PI * 2 - ay;
+											}
+											qy = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), ay);
+											that.sizeVector.applyQuaternion(qy);
+										}
+										
+										zeroVector = new THREE.Vector3(1, 0, 1).setLength(hit.length());
+										a1 = new THREE.Vector3(zeroVector.x, hit.y, zeroVector.z).angleTo(zeroVector);
+										a2 = new THREE.Vector3(zeroVector.x, pos4.y, zeroVector.z).angleTo(zeroVector);
+										axz = a2 - a1;
+
+										qxz = new THREE.Quaternion().setFromAxisAngle(that.sizeVector.clone().cross(new THREE.Vector3(0, 1, 0)).normalize(), axz);
+										that.sizeVector.applyQuaternion(qxz);
 									}
 
 									break;
@@ -671,6 +715,7 @@ function NGTAnchors(scene) {
 	this.endTilt = undefined; //the pan and tilt values between the zeroUvVertex and the viewfinder
 	this.zeroUvVertex = undefined; //The vector pointing to the vertex with the smallest uv values
 	
+	this.tiltOutOfLimit = false;
 	this.ngtScene = scene;
 
 	this.calculateAngle = function () {
@@ -723,6 +768,13 @@ function NGTAnchors(scene) {
 			}
 
 		}
+		var quaternion = new THREE.Quaternion();
+		quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), -Math.PI * (1-bestX) );
+		this.zeroUvVertex.applyQuaternion(quaternion);
+		
+		var xz = this.zeroUvVertex.clone().cross(new THREE.Vector3(0, 1, 0)).normalize();
+		quaternion.setFromAxisAngle( xz, -Math.PI * (1-bestY) );
+		this.zeroUvVertex.applyQuaternion(quaternion);
 	};
 	
 	this.getAngles = function(){
@@ -739,8 +791,8 @@ function NGTCamera(scene) {
 	this.ngtScene = scene;
 	this.maxFov = 120; //Maximum limit for the Camera zoom
 	this.minFov = 30; //Minimum limit for the Camera zoom
-	this.zoomStep = 1; //How much the zomm will be incremented/decremented in one step
-	this.standardFov = 50 / 100 * this.maxFov + Math.abs(1 - 50 / 100) * this.minFov; //The initial fov value
+	this.zoomStep = 1; //How much the zoom will be incremented/decremented in one step
+	this.standardFov =  0.5 * this.maxFov + 0.5 * this.minFov; //The initial fov value
 	this.camera = new THREE.PerspectiveCamera(this.standardFov, this.ngtScene.canvas.width / this.ngtScene.canvas.height, 1, 1000);
 	this.currentPercentage;
 	var that = this;

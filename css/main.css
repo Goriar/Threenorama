@@ -6109,3 +6109,12 @@ ng-threenorama {
   ng-threenorama .movecenter {
     top: 20px;
     left: 20px; }
+
+.jobValues {
+  list-style-type: none;
+  padding-left: 0px;
+  font-weight: bold; }
+
+ul.jobValues li {
+  display: inline-block;
+  padding-left: 15px; }

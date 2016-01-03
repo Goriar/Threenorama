@@ -4,11 +4,25 @@
   threenoramaApp = angular.module('ThreenoramaApp', ['ngThreenorama']);
 
   threenoramaApp.controller('ThreenoramaCntrl', function($scope) {
+    $scope.pictureUploaded = function() {
+      var input, reader;
+      input = document.getElementById("picUpload");
+      reader = new FileReader();
+      reader.onload = (function(theFile) {
+        return function(e) {
+          return $scope.url = e.target.result;
+        };
+      })(input.files[0]);
+      return reader.readAsDataURL(input.files[0]);
+    };
     $scope.setSource1 = function() {
       return $scope.url = 'img/pano.jpg';
     };
     return $scope.setSource2 = function() {
-      return $scope.url = 'pano2.jpg';
+      var input;
+      input = document.getElementById("picUpload");
+      input.click();
+      return $scope.url = input.value;
     };
   });
 
