@@ -5,7 +5,7 @@ threenoramaApp.controller 'ThreenoramaCntrl' , ($scope) ->
 		input = document.getElementById("picUpload")
 		reader = new FileReader()
 		reader.onload = ((theFile) ->
-			(e) ->
+			(e) -> $scope.$apply ->
 				$scope.url = e.target.result
 		)(input.files[0])
 		reader.readAsDataURL(input.files[0])
@@ -14,4 +14,4 @@ threenoramaApp.controller 'ThreenoramaCntrl' , ($scope) ->
 	$scope.setSource2 = ->
 		input = document.getElementById("picUpload")
 		input.click()
-		$scope.url = input.value
+	

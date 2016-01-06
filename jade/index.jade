@@ -35,9 +35,8 @@ html(ng-app='ThreenoramaApp')
             input(type='number', name='Minimum Zoom Generic', id='minZoom', value='0.0', ng-keyUp='updateAngles()', step='0.1')
             label(for='maxZoom') Max Zoom Generic
             input(type='number', name='Maximum Zoom Generic', id='maxZoom', value='0.083', ng-keyUp='updateAngles()', step='0.1')
-           
         .col-md-10
-            ng-threenorama(src='url')
+            ng-threenorama(src='url' id='canvas')
                 include _controls.jade
             div(class='jobValues')
                 p Click the Panorama Viewer to refresh Values
