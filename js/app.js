@@ -10,7 +10,9 @@
       reader = new FileReader();
       reader.onload = (function(theFile) {
         return function(e) {
-          return $scope.url = e.target.result;
+          return $scope.$apply(function() {
+            return $scope.url = e.target.result;
+          });
         };
       })(input.files[0]);
       return reader.readAsDataURL(input.files[0]);
@@ -21,8 +23,7 @@
     return $scope.setSource2 = function() {
       var input;
       input = document.getElementById("picUpload");
-      input.click();
-      return $scope.url = input.value;
+      return input.click();
     };
   });
 
