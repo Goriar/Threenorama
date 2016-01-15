@@ -15,5 +15,6 @@
   ],
   "main": [
     "angular-threenorama.js"
-  ]
+  ],
+  "version": "0.0.2"
 }
