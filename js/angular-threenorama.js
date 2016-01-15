@@ -115,7 +115,8 @@
           focalDistance = 1 * minFocal + ((maxFocal - minFocal) * (document.getElementById("zoom").value / 100));
           panAngle = Math.atan(document.getElementById("sensorWidth").value / (2 * focalDistance));
           tiltAngle = Math.atan(document.getElementById("sensorHeight").value / (2 * focalDistance));
-          return ngThreenorama.setViewFinderToSinglePicture(panAngle, tiltAngle);
+          ngThreenorama.setViewFinderToSinglePicture(panAngle, tiltAngle);
+          return updateAngles();
         };
         sourceChanged = function() {
           return ngThreenorama.changeImage(scope.src);
