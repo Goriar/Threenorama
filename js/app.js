@@ -29,7 +29,7 @@
       return $scope.overlap = value;
     };
     return $scope.createRecorderjob = function(cam) {
-      var errorCallback, successCallback, xDelta, xEnd, xStart, yDelta, yEnd, yStart, zoom;
+      var errorCallback, successCallback, tmp, xDelta, xEnd, xStart, yDelta, yEnd, yStart, zoom;
       successCallback = function(response) {
         return alert("Success!");
       };
@@ -43,13 +43,23 @@
       xDelta = document.getElementById("xDelta").textContent;
       yDelta = document.getElementById("yDelta").textContent;
       zoom = document.getElementById("zoomGeneric").textContent;
+      if (yEnd < yStart) {
+        tmp = yStart;
+        yStart = yEnd;
+        yEnd = tmp;
+      }
+      if (yDelta < 0) {
+        yDelta *= -1;
+      }
       return $http({
         method: 'POST',
         url: '/recorderjob',
         data: {
           name: 'Test',
           active: true,
-          camera: cam,
+          camera: {
+            id: cam
+          },
           panorama: {
             startX: xStart,
             startY: yStart,
