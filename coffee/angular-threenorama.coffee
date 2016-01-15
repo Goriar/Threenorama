@@ -85,6 +85,7 @@ module.directive 'ngThreenorama' , (ngThreenorama, $window, $rootScope) ->
 				panAngle = Math.atan(document.getElementById("sensorWidth").value / (2 * focalDistance))
 				tiltAngle = Math.atan(document.getElementById("sensorHeight").value / (2 * focalDistance))
 				ngThreenorama.setViewFinderToSinglePicture(panAngle,tiltAngle)
+				updateAngles()
 					
 			sourceChanged = ->
 				ngThreenorama.changeImage(scope.src)
