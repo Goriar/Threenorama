@@ -222,7 +222,7 @@ function NGTScene() {
 	this.createViewFinderFromCamera = function () {
 		this.raycaster.set(new THREE.Vector3(0, 0, 0), this.target);
 		var hit = this.raycaster.intersectObject(this.sphere)[0].point;
-		var axis = this.target.clone().cross(new THREE.Vector3(0, 1, 0));
+		var axis = this.target.clone().cross(new THREE.Vector3(0, 1, 0)).normalize();
 		var qxz = new THREE.Quaternion().setFromAxisAngle(axis, Math.PI / 8);
 		var qy = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 8);
 
@@ -231,6 +231,16 @@ function NGTScene() {
 
 		this.ngtRect.pictureSelect(this.startVector, this.sizeVector);
 	};
+	
+	this.setViewFinderToSinglePicture = function (panAngle, tiltAngle) {
+		
+		var axis = this.startVector.clone().cross(new THREE.Vector3(0, 1, 0)).normalize();
+		var qxz = new THREE.Quaternion().setFromAxisAngle(axis, tiltAngle).normalize();
+		var qy = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), panAngle).normalize();
+		
+		this.sizeVector = this.startVector.clone().applyQuaternion(qxz.conjugate()).applyQuaternion(qy.conjugate());
+		this.ngtRect.pictureSelect(this.startVector, this.sizeVector);
+	}
 	
 	/**
 	* The render functions that is called in every frame, draws and updates the scene
