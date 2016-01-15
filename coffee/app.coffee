@@ -34,9 +34,16 @@ threenoramaApp.controller 'ThreenoramaCntrl' , ($scope, $http) ->
 		yDelta = document.getElementById("yDelta").textContent
 		zoom = document.getElementById("zoomGeneric").textContent
 		
+		if yEnd < yStart
+			tmp = yStart
+			yStart = yEnd
+			yEnd = tmp
+		if yDelta < 0
+			yDelta *= -1
+			
 		$http({
 			method: 'POST',
 			url: '/recorderjob',
-			data: {name: 'Test', active: true, camera: cam, panorama: {startX: xStart, startY: yStart
+			data: {name: 'Test', active: true, camera: {id: cam}, panorama: {startX: xStart, startY: yStart
 			,endX: xEnd, endY: yEnd, deltaX: xDelta, deltaY: yDelta, zoom: zoom}}
 		}).then(successCallback,errorCallback)

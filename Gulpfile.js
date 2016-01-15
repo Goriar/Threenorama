@@ -46,7 +46,7 @@ gulp.task('deployDemo', function(){
 });
 
 gulp.task('copyPluginFiles', function(){
-	return gulp.src(['jade/_controls.jade','sass/_controls.sass','js/threenorama.js','public/js/angular-threenorama.js','json/bower.json'])
+	return gulp.src(['jade/_controls.jade','sass/_controls.sass','js/threenorama.js','public/js/angular-threenorama.js','json/bower.json','public/css/main.css','public/js/app.js'])
 	.pipe(gulp.dest('bower-release'));
 });
 
