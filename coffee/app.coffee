@@ -74,6 +74,11 @@ threenoramaApp.controller 'ThreenoramaCntrl' , ($scope, $http) ->
 		yDelta = (tiltAngle * 0.5 / 180 * yStart + tiltAngle * 0.5 / 180 * yEnd)
 		zoom = document.getElementById("minZoom").value
 		
+		if yEnd < yStart
+			tmp = yStart
+			yStart = yEnd
+			yEnd = tmp
+			
 		if yDelta < 0
 			yDelta *= -1
 			
