@@ -44,6 +44,39 @@ threenoramaApp.controller 'ThreenoramaCntrl' , ($scope, $http) ->
 		$http({
 			method: 'POST',
 			url: '/recorderjob',
-			data: {name: 'Test', active: true, camera: {id: cam}, panorama: {startX: xStart, startY: yStart
+			data: {name: 'Threenorama', active: true, camera: {id: cam}, panorama: {startX: xStart, startY: yStart
+			,endX: xEnd, endY: yEnd, deltaX: xDelta, deltaY: yDelta, zoom: zoom}}
+		}).then(successCallback,errorCallback)
+		
+	$scope.create360Pano = (cam) ->
+		
+		successCallback = (response) -> 
+			# this callback will be called asynchronously
+			# when the response is available
+			alert("Success!")
+		errorCallback = (response) ->
+			# called asynchronously if an error occurs
+			# or server returns response with an error status.
+			alert("Failure!")
+			
+		xStart = document.getElementById("xMin").value
+		yStart = document.getElementById("yMin").value
+		xEnd = document.getElementById("xMax").value
+		yEnd = document.getElementById("yMax").value
+		
+		minFocal = document.getElementById("minFocal").value
+		maxFocal = document.getElementById("maxFocal").value
+		focalDistance = 1 * minFocal + ((maxFocal - minFocal) * (document.getElementById("zoom").value / 100))
+		panAngle = Math.atan(document.getElementById("sensorWidth").value / (2 * focalDistance))
+		tiltAngle = Math.atan(document.getElementById("sensorHeight").value / (2 * focalDistance))
+				
+		xDelta = (panAngle * 0.5 / 360 * xStart + panAngle * 0.5 / 360 * xEnd)
+		yDelta = (tiltAngle * 0.5 / 180 * yStart + tiltAngle * 0.5 / 180 * yEnd)
+		zoom = document.getElementById("minZoom").value
+		
+		$http({
+			method: 'POST',
+			url: '/recorderjob',
+			data: {name: '360Pano', active: true, camera: {id: cam}, panorama: {startX: xStart, startY: yStart
 			,endX: xEnd, endY: yEnd, deltaX: xDelta, deltaY: yDelta, zoom: zoom}}
 		}).then(successCallback,errorCallback)

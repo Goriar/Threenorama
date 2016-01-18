@@ -40,7 +40,8 @@ head
                 include _controls.jade
             div(class='jobValues')
                 p Click the Panorama Viewer to refresh Values
-                button.btn.btn-default(type='button', ng-click='createRecorderjob()') Create Recorderjob
+                button.btn.btn-default(type='button', ng-click='createRecorderjob()') Create Pano from View Finder
+                button.btn.btn-default(type='button', ng-click='create360Pano()') Create 360 Pano
                 p
                 label(for='pictureCoverage') Bild Überdeckung in %
                 input(type='number', name='Bild Überdeckung', id='pictureCoverage', value ='50',ng-model='picOverlap',ng-init="picOverlap=50", ng-keyUp='pictureOverlap(picOverlap)', step='0.1')
