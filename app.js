@@ -73,7 +73,7 @@
       }).then(successCallback, errorCallback);
     };
     return $scope.create360Pano = function(cam) {
-      var errorCallback, focalDistance, maxFocal, minFocal, panAngle, successCallback, tiltAngle, xDelta, xEnd, xStart, yDelta, yEnd, yStart, zoom;
+      var errorCallback, focalDistance, maxFocal, minFocal, panAngle, successCallback, tiltAngle, tmp, xDelta, xEnd, xStart, yDelta, yEnd, yStart, zoom;
       successCallback = function(response) {
         return alert("Success!");
       };
@@ -92,6 +92,11 @@
       xDelta = panAngle * 0.5 / 360 * xStart + panAngle * 0.5 / 360 * xEnd;
       yDelta = tiltAngle * 0.5 / 180 * yStart + tiltAngle * 0.5 / 180 * yEnd;
       zoom = document.getElementById("minZoom").value;
+      if (yEnd < yStart) {
+        tmp = yStart;
+        yStart = yEnd;
+        yEnd = tmp;
+      }
       if (yDelta < 0) {
         yDelta *= -1;
       }
