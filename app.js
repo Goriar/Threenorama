@@ -83,9 +83,7 @@
       xStart = document.getElementById("xMin").value;
       yStart = document.getElementById("yMin").value;
       xEnd = document.getElementById("xMax").value;
-      yEnd = {
-        yMax: document.getElementById("yMax").value
-      };
+      yEnd = document.getElementById("yMax").value;
       minFocal = document.getElementById("minFocal").value;
       maxFocal = document.getElementById("maxFocal").value;
       focalDistance = 1 * minFocal + ((maxFocal - minFocal) * (document.getElementById("zoom").value / 100));
