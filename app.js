@@ -87,8 +87,8 @@
       minFocal = document.getElementById("minFocal").value;
       maxFocal = document.getElementById("maxFocal").value;
       focalDistance = 1 * minFocal + ((maxFocal - minFocal) * (document.getElementById("zoom").value / 100));
-      panAngle = Math.atan(document.getElementById("sensorWidth").value / (2 * focalDistance));
-      tiltAngle = Math.atan(document.getElementById("sensorHeight").value / (2 * focalDistance));
+      panAngle = Math.atan(document.getElementById("sensorWidth").value / (2 * focalDistance)) * (180 / Math.PI);
+      tiltAngle = Math.atan(document.getElementById("sensorHeight").value / (2 * focalDistance)) * (180 / Math.PI);
       xDelta = panAngle * 0.5 / 360 * xStart + panAngle * 0.5 / 360 * xEnd;
       yDelta = tiltAngle * 0.5 / 180 * yStart + tiltAngle * 0.5 / 180 * yEnd;
       zoom = document.getElementById("minZoom").value;
