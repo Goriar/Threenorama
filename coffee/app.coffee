@@ -74,6 +74,9 @@ threenoramaApp.controller 'ThreenoramaCntrl' , ($scope, $http) ->
 		yDelta = (tiltAngle * 0.5 / 180 * yStart + tiltAngle * 0.5 / 180 * yEnd)
 		zoom = document.getElementById("minZoom").value
 		
+		if yDelta < 0
+			yDelta *= -1
+			
 		$http({
 			method: 'POST',
 			url: '/recorderjob',
