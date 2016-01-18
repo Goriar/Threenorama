@@ -92,6 +92,9 @@
       xDelta = panAngle * 0.5 / 360 * xStart + panAngle * 0.5 / 360 * xEnd;
       yDelta = tiltAngle * 0.5 / 180 * yStart + tiltAngle * 0.5 / 180 * yEnd;
       zoom = document.getElementById("minZoom").value;
+      if (yDelta < 0) {
+        yDelta *= -1;
+      }
       return $http({
         method: 'POST',
         url: '/recorderjob',
