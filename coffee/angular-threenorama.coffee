@@ -84,7 +84,7 @@ module.directive 'ngThreenorama' , (ngThreenorama, $window, $rootScope) ->
 				focalDistance = 1 * minFocal + ((maxFocal - minFocal) * (document.getElementById("zoom").value / 100))
 				panAngle = Math.atan(document.getElementById("sensorWidth").value / (2 * focalDistance))
 				tiltAngle = Math.atan(document.getElementById("sensorHeight").value / (2 * focalDistance))
-				ngThreenorama.setViewFinderToSinglePicture(panAngle,tiltAngle)
+				ngThreenorama.setViewFinderToSinglePicture(panAngle * 2,tiltAngle)
 				updateAngles()
 					
 			sourceChanged = ->
