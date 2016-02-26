@@ -44,8 +44,8 @@ threenoramaApp.controller 'ThreenoramaCntrl' , ($scope, $http) ->
 		$http({
 			method: 'POST',
 			url: '/recorderjob',
-			data: {name: 'Threenorama', active: true, camera: {id: cam}, panorama: {startX: xStart, startY: yStart
-			,endX: xEnd, endY: yEnd, deltaX: xDelta, deltaY: yDelta, zoom: zoom}}
+			data: {name: 'Threenorama', active: true, camera: {id: cam}, startX: xStart, startY: yStart
+			,endX: xEnd, endY: yEnd, startTime: '00:00', endTime: '01:00'}
 		}).then(successCallback,errorCallback)
 		
 	$scope.create360Pano = (cam) ->
@@ -85,6 +85,6 @@ threenoramaApp.controller 'ThreenoramaCntrl' , ($scope, $http) ->
 		$http({
 			method: 'POST',
 			url: '/recorderjob',
-			data: {name: '360Pano', active: true, camera: {id: cam}, panorama: {startX: xStart, startY: yStart
-			,endX: xEnd, endY: yEnd, deltaX: xDelta, deltaY: yDelta, zoom: zoom}}
+			data: {name: 'Threenorama', active: true, camera: {id: cam}, startX: xStart, startY: yStart
+			,endX: xEnd, endY: yEnd, startTime: '00:00', endTime: '01:00'}
 		}).then(successCallback,errorCallback)
