@@ -5,21 +5,12 @@ module.service('ngThreenorama', -> new NGTScene())
 module.directive 'ngThreenorama' , (ngThreenorama, $window, $rootScope) ->
 	directive =
 		transclude: true 
-		scope:
+		scope: 
 			src: '='
-			zoom: '='
-			zoomStep: '='
-			start: '='
-			end: '='
-			xGeneric: '='
-			yGeneric: '='
-			sensor: '='
-			zoomAbsolute: '='
-			zoomGeneric: '='
-			pictureOverlap: '='
-			panoramaZoom: '='
             
 		link:(scope,element,attrs,ctrl,transcludeFn) ->
+			
+			scope.src = "none"
 			scope.zoomStep ?= 1
 			scope.zoom ?= 50
 			scope.start ?= 

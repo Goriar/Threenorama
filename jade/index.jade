@@ -16,7 +16,7 @@ head
             button.btn.btn-default.btn-block(type='button', ng-click='setSource2()') Choose Local Picture
             input(type='file', id='picUpload', name='Picture Upload', style='display: none;', onChange='angular.element(this).scope().pictureUploaded()')
             label(for='xMin') X Minimum Generic
-            input(type='number', name='X Min Generic', id='xMin', value='0.0', ng-model='xMinGeneric', ng-init="xMinGeneric=0.0",ng-keyUp='updateXMin(xMinGeneric)', step='0.1')
+            input(type='number', name='X Min Generic', id='xMin', value='0.0',ng-keyUp='updateAngles()' , step='0.1')
             label(for='xMax') X Maximum Generic
             input(type='number', name='X Max Generic', id='xMax', value='1.0', ng-keyUp='updateAngles()', step='0.1')
             label(for='xMin') Y Minimum Generic
@@ -36,7 +36,7 @@ head
             label(for='maxZoom') Max Zoom Generic
             input(type='number', name='Maximum Zoom Generic', id='maxZoom', value='0.083', ng-keyUp='updateAngles()', step='0.1')
         .col-md-10
-            ng-threenorama(src='url', xGeneric.xMin='xMin', pictureOverlap='overlap', id='canvas')
+            ng-threenorama(src='url', id='canvas')
                 include _controls.jade
             div(class='jobValues')
                 p Click the Panorama Viewer to refresh Values
