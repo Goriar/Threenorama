@@ -57,9 +57,7 @@
         data: {
           name: 'Threenorama',
           active: true,
-          camera: {
-            id: cam
-          },
+          camera: cam,
           startX: xStart,
           startY: yStart,
           endX: xEnd,
@@ -103,9 +101,7 @@
         data: {
           name: 'Threenorama',
           active: true,
-          camera: {
-            id: cam
-          },
+          camera: cam,
           startX: xStart,
           startY: yStart,
           endX: xEnd,
