@@ -12,21 +12,11 @@
     return directive = {
       transclude: true,
       scope: {
-        src: '=',
-        zoom: '=',
-        zoomStep: '=',
-        start: '=',
-        end: '=',
-        xGeneric: '=',
-        yGeneric: '=',
-        sensor: '=',
-        zoomAbsolute: '=',
-        zoomGeneric: '=',
-        pictureOverlap: '=',
-        panoramaZoom: '='
+        src: '='
       },
       link: function(scope, element, attrs, ctrl, transcludeFn) {
         var cameraValuesChanged, canvas, getMousePos, mouseDown, mouseDrag, mouseMove, mouseUp, resize, sourceChanged, updateAngles, zoomChanged;
+        scope.src = "none";
         if (scope.zoomStep == null) {
           scope.zoomStep = 1;
         }
@@ -115,7 +105,7 @@
           focalDistance = 1 * minFocal + ((maxFocal - minFocal) * (document.getElementById("zoom").value / 100));
           panAngle = Math.atan(document.getElementById("sensorWidth").value / (2 * focalDistance));
           tiltAngle = Math.atan(document.getElementById("sensorHeight").value / (2 * focalDistance));
-          ngThreenorama.setViewFinderToSinglePicture(panAngle, tiltAngle);
+          ngThreenorama.setViewFinderToSinglePicture(panAngle * 2, tiltAngle);
           return updateAngles();
         };
         sourceChanged = function() {
