@@ -9,8 +9,8 @@ threenoramaApp.controller 'ThreenoramaCntrl' , ($scope, $http) ->
 				$scope.url = e.target.result
 		)(input.files[0])
 		reader.readAsDataURL(input.files[0])
-	$scope.setSource1 = ->
-		$scope.url = 'img/pano.jpg'
+	$scope.setSource1 = (cam)->
+		$scope.url = cam.pano360.file
 	$scope.setSource2 = ->
 		input = document.getElementById("picUpload")
 		input.click()
