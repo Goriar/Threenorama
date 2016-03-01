@@ -88,8 +88,13 @@ module.directive 'ngThreenorama' , (ngThreenorama, $window, $rootScope) ->
 				scope.sliderValue = scope.zoom
 			
 			getMousePos = (event) ->
-				x = event.pageX - element[0].offsetLeft - element[0].offsetParent.offsetLeft
-				y = event.pageY - element[0].offsetTop - element[0].offsetParent.offsetTop
+				x = event.pageX - element[0].offsetLeft
+				y = event.pageY - element[0].offsetTop
+				parent = element[0].offsetParent
+				while parent!=null
+					x -= parent.offsetLeft
+					y -= parent.offsetTop
+					parent = parent.offsetParent
 				return [x,y]
 				
 			mouseDown = (event) ->
